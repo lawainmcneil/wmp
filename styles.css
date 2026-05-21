@@ -1,0 +1,735 @@
+:root {
+  --ink: #143347;
+  --navy: #1d475b;
+  --navy-dark: #0f2d3d;
+  --blue: #315f73;
+  --gold: #d9b45a;
+  --gold-dark: #a77f2b;
+  --gold-text: #7a5a18; /* accessible gold for small text on light backgrounds — 5.6:1 on white */
+  --paper: #fbfaf5;
+  --cream: #f1eadc;
+  --stone: #d8d0c2;
+  --muted: #64747d;
+  --white: #ffffff;
+  --shadow: 0 18px 50px rgba(15, 45, 61, 0.14);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: "Avenir Next", Avenir, "Segoe UI", system-ui, sans-serif;
+  line-height: 1.6;
+}
+
+/* ── Skip link ─────────────────────────────────────── */
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 24px;
+  background: var(--gold);
+  color: var(--ink);
+  font-weight: 900;
+  text-decoration: none;
+  z-index: 10000;
+  border-radius: 0 0 6px 6px;
+  white-space: nowrap;
+  transition: top 0.15s;
+}
+.skip-link:focus {
+  top: 0;
+}
+
+/* ── Focus styles ──────────────────────────────────── */
+:focus-visible {
+  outline: 3px solid var(--gold-dark);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Light outline on dark-background elements */
+.hero :focus-visible,
+.quote-band :focus-visible,
+.service-card-feature :focus-visible,
+.contact-card :focus-visible,
+.site-footer :focus-visible {
+  outline-color: var(--gold);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ── Header ────────────────────────────────────────── */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  min-height: 92px;
+  padding: 14px clamp(20px, 5vw, 72px);
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 1px 0 rgba(29, 71, 91, 0.1);
+  backdrop-filter: blur(12px);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  min-width: 190px;
+}
+
+.brand img {
+  width: 170px;
+  height: auto;
+  display: block;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(16px, 2.4vw, 34px);
+  color: #172a36;
+  font-size: 0.84rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.main-nav a {
+  padding-block: 10px;
+  white-space: nowrap;
+}
+
+.main-nav a:hover {
+  color: var(--gold-dark);
+  text-decoration: underline;
+}
+
+.site-footer a:hover {
+  color: #e8c97a; /* lighter gold stays legible on dark footer bg */
+  text-decoration: underline;
+}
+
+/* Hamburger toggle — hidden on desktop */
+.nav-toggle {
+  display: none;
+}
+
+.header-cta,
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 13px 20px;
+  border-radius: 5px;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.header-cta,
+.button-gold {
+  color: #21313d;
+  background: var(--gold);
+  box-shadow: 0 12px 24px rgba(167, 127, 43, 0.22);
+}
+
+.header-cta:hover,
+.button-gold:hover {
+  background: #e4c56c;
+}
+
+.button-light {
+  color: var(--white);
+  border: 1px solid rgba(255, 255, 255, 0.72);
+}
+
+/* ── Hero ──────────────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: 650px;
+  display: grid;
+  align-items: center;
+  overflow: hidden;
+  background: var(--navy-dark);
+}
+
+.hero-image {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(90deg, rgba(10, 36, 50, 0.94) 0%, rgba(10, 36, 50, 0.76) 42%, rgba(10, 36, 50, 0.18) 100%),
+    url("Images/hero image_files/unsplash-image-WgGJjGN4_ck.jpg");
+  background-position: center;
+  background-size: cover;
+  transform: scale(1.01);
+}
+
+.hero-content {
+  position: relative;
+  width: min(760px, calc(100% - 48px));
+  margin-left: clamp(24px, 12vw, 220px);
+  padding-block: 90px;
+  color: var(--white);
+}
+
+.eyebrow,
+.section-label {
+  margin: 0 0 12px;
+  color: var(--gold); /* default: light — works on dark hero bg */
+  font-size: 0.8rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+/* On light backgrounds the gold eyebrow fails contrast — use accessible dark gold */
+.section-heading .eyebrow {
+  color: var(--gold-text);
+}
+
+h1,
+h2,
+h3,
+p,
+blockquote {
+  margin-top: 0;
+}
+
+h1,
+h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.04;
+  letter-spacing: 0;
+}
+
+h1 {
+  max-width: 720px;
+  margin-bottom: 22px;
+  font-size: clamp(3rem, 5.4vw, 5.45rem);
+}
+
+.hero p:not(.eyebrow) {
+  max-width: 650px;
+  margin-bottom: 34px;
+  font-size: clamp(1.05rem, 1.5vw, 1.24rem);
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+/* ── Sections ──────────────────────────────────────── */
+.section-pad {
+  padding: clamp(72px, 9vw, 128px) clamp(24px, 7vw, 112px);
+}
+
+.intro {
+  background: var(--paper);
+}
+
+.intro-grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.95fr) minmax(280px, 0.7fr);
+  gap: clamp(32px, 6vw, 90px);
+  align-items: start;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.intro h2,
+.section-heading h2,
+.insights-copy h2,
+.contact-band h2 {
+  color: var(--navy);
+  font-size: clamp(2.1rem, 4vw, 4rem);
+}
+
+.intro p,
+.section-heading,
+.story-copy p,
+.team-card p,
+.service-card p,
+.process-list p,
+.insights-copy p,
+.contact-band p {
+  color: var(--muted);
+  font-size: 1.06rem;
+}
+
+/* ── About ─────────────────────────────────────────── */
+.about {
+  background: var(--cream);
+}
+
+.section-heading {
+  max-width: 820px;
+  margin: 0 auto 46px;
+  text-align: center;
+}
+
+.story-grid {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.8fr) minmax(300px, 0.9fr);
+  gap: clamp(28px, 5vw, 72px);
+  align-items: stretch;
+  max-width: 1180px;
+  margin: 0 auto 28px;
+}
+
+.story-image {
+  min-height: 430px;
+  background-image:
+    linear-gradient(0deg, rgba(29, 71, 91, 0.15), rgba(29, 71, 91, 0.15)),
+    url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80");
+  background-position: center;
+  background-size: cover;
+  box-shadow: var(--shadow);
+}
+
+.story-copy {
+  align-self: center;
+  padding: clamp(8px, 2vw, 22px) 0;
+}
+
+.story-copy h3,
+.team-card h3,
+.service-card h3,
+.process-list h3,
+.contact-card h3 {
+  margin: 12px 0;
+  color: var(--navy);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.7rem;
+  line-height: 1.14;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  max-width: 1180px;
+  margin: 34px auto 0;
+}
+
+.team-card,
+.service-card {
+  min-height: 305px;
+  padding: 30px;
+  background: var(--white);
+  border-top: 5px solid var(--gold);
+  box-shadow: var(--shadow);
+}
+
+.team-card span,
+.process-list span,
+.card-number {
+  color: var(--gold-text); /* was gold-dark (#a77f2b = 3.4:1) — now 5.6:1 on white */
+  font-size: 0.8rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.team-card a {
+  color: var(--navy);
+  font-weight: 900;
+}
+
+.team-card a:hover {
+  color: var(--gold-text);
+  text-decoration: underline;
+}
+
+/* ── Process ───────────────────────────────────────── */
+.process {
+  background: var(--paper);
+}
+
+.process-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 1180px;
+  margin: 0 auto;
+  border-top: 1px solid var(--stone);
+  border-bottom: 1px solid var(--stone);
+}
+
+.process-list article {
+  padding: 34px 30px;
+  border-right: 1px solid var(--stone);
+}
+
+.process-list article:last-child {
+  border-right: 0;
+}
+
+.quote-band {
+  max-width: 980px;
+  margin: 54px auto 0;
+  padding: clamp(34px, 5vw, 58px);
+  color: var(--white);
+  text-align: center;
+  background:
+    linear-gradient(90deg, rgba(15, 45, 61, 0.92), rgba(15, 45, 61, 0.76)),
+    url("https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1500&q=80");
+  background-position: center;
+  background-size: cover;
+}
+
+.quote-band blockquote {
+  margin-bottom: 10px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2rem, 4vw, 3.6rem);
+  line-height: 1.08;
+}
+
+.quote-band cite {
+  color: rgba(255, 255, 255, 0.78);
+  font-style: normal;
+  font-weight: 800;
+}
+
+/* ── Services ──────────────────────────────────────── */
+.services {
+  background: var(--cream);
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.service-card-feature {
+  color: var(--white);
+  background: var(--navy);
+}
+
+.service-card-feature h3,
+.service-card-feature p {
+  color: var(--white);
+}
+
+/* Feature card sits on navy — use light gold for the number */
+.service-card-feature .card-number {
+  color: var(--gold);
+}
+
+/* ── Insights ──────────────────────────────────────── */
+.insights {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.9fr) auto;
+  gap: 28px;
+  align-items: center;
+  background:
+    linear-gradient(90deg, rgba(251, 250, 245, 0.96), rgba(251, 250, 245, 0.86)),
+    url("https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1700&q=80");
+  background-position: center;
+  background-size: cover;
+}
+
+.insights-copy {
+  max-width: 760px;
+}
+
+/* ── Contact ───────────────────────────────────────── */
+.contact-band {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.72fr) minmax(320px, 1fr);
+  gap: clamp(28px, 5vw, 80px);
+  align-items: start;
+  padding: clamp(66px, 8vw, 110px) clamp(24px, 7vw, 112px);
+  background: var(--white);
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.contact-card {
+  display: grid;
+  gap: 10px;
+  min-height: 235px;
+  padding: 26px;
+  color: var(--white);
+  background: var(--navy);
+  box-shadow: var(--shadow);
+}
+
+.contact-card h3 {
+  color: var(--white);
+}
+
+.contact-card a,
+.contact-card span {
+  color: rgba(255, 255, 255, 0.86);
+  overflow-wrap: anywhere;
+}
+
+.contact-card a:hover {
+  color: var(--white);
+  text-decoration: underline;
+}
+
+/* ── Footer ────────────────────────────────────────── */
+.site-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 34px clamp(24px, 7vw, 112px);
+  color: rgba(255, 255, 255, 0.76);
+  background: var(--navy-dark);
+}
+
+.site-footer strong {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--white);
+}
+
+.site-footer p {
+  margin: 0 0 4px;
+}
+
+.site-footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 14px 20px;
+  max-width: 520px;
+}
+
+.site-footer a {
+  color: var(--gold);
+  font-weight: 800;
+}
+
+/* ── Reduced motion ────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .skip-link {
+    transition: none;
+  }
+}
+
+/* ── Tablet (≤1100px) ──────────────────────────────── */
+@media (max-width: 1100px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Tablet / small desktop (≤980px) ──────────────── */
+@media (max-width: 980px) {
+  .site-header {
+    flex-wrap: wrap;
+    min-height: auto;
+  }
+
+  .brand {
+    min-width: 0;
+  }
+
+  .main-nav {
+    order: 3;
+    width: 100%;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .hero-content {
+    margin-left: clamp(24px, 8vw, 72px);
+  }
+
+  .intro-grid,
+  .story-grid,
+  .team-grid,
+  .service-grid,
+  .process-list,
+  .insights,
+  .contact-band {
+    grid-template-columns: 1fr;
+  }
+
+  .process-list article,
+  .process-list article:last-child {
+    border-right: 0;
+    border-bottom: 1px solid var(--stone);
+  }
+
+  .process-list article:last-child {
+    border-bottom: 0;
+  }
+
+  .site-footer,
+  .site-footer nav {
+    justify-content: flex-start;
+  }
+}
+
+/* ── Mobile (≤640px) ───────────────────────────────── */
+@media (max-width: 640px) {
+  .site-header {
+    padding: 14px 18px;
+    position: relative; /* needed for absolute-positioned mobile nav */
+  }
+
+  .brand {
+    flex: 1;
+  }
+
+  .brand img {
+    width: 142px;
+  }
+
+  /* Hide desktop nav, show hamburger button */
+  .main-nav {
+    display: none;
+    order: unset;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: 8px 0 16px;
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 6px 20px rgba(15, 45, 61, 0.14);
+    border-top: 1px solid var(--stone);
+    gap: 0;
+    overflow-x: visible;
+    z-index: 9;
+  }
+
+  .main-nav.is-open {
+    display: flex;
+  }
+
+  .main-nav a {
+    padding: 14px 24px;
+    font-size: 0.9rem;
+    border-bottom: 1px solid var(--stone);
+    white-space: normal;
+  }
+
+  .main-nav a:last-child {
+    border-bottom: none;
+  }
+
+  /* Hamburger button */
+  .nav-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 36px;
+    height: 36px;
+    padding: 8px 4px;
+    background: none;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 8px;
+    flex-shrink: 0;
+  }
+
+  .nav-toggle:focus-visible {
+    border-color: var(--gold-dark);
+    outline: none;
+  }
+
+  .nav-toggle span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: var(--ink);
+    border-radius: 2px;
+    transition: transform 0.2s, opacity 0.2s;
+  }
+
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+  }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* Hide header CTA on mobile — hero has two CTAs */
+  .header-cta {
+    display: none;
+  }
+
+  .hero {
+    min-height: 680px;
+  }
+
+  .hero-image {
+    background-image:
+      linear-gradient(90deg, rgba(10, 36, 50, 0.96) 0%, rgba(10, 36, 50, 0.78) 100%),
+      url("Images/hero image_files/unsplash-image-WgGJjGN4_ck.jpg");
+  }
+
+  .hero-content {
+    width: calc(100% - 36px);
+    margin-inline: 18px;
+  }
+
+  h1 {
+    font-size: clamp(2.55rem, 13vw, 4rem);
+  }
+
+  .button,
+  .button-light {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .story-image {
+    min-height: 280px;
+  }
+
+  .team-card,
+  .service-card,
+  .contact-card {
+    min-height: 0;
+    padding: 24px;
+  }
+
+  .site-footer {
+    flex-direction: column;
+  }
+}
