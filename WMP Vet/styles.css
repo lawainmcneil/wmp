@@ -9,7 +9,7 @@
   --paper: #fbfaf5;
   --cream: #f1eadc;
   --stone: #d8d0c2;
-  --muted: #64747d;
+  --muted: #535e67;
   --white: #ffffff;
   --shadow: 0 18px 50px rgba(15, 45, 61, 0.14);
 }
@@ -20,6 +20,50 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Keyboard focus ring — visible on light, gold, and dark surfaces */
+a:focus-visible,
+button:focus-visible,
+.button:focus-visible,
+.header-cta:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.button-gold:focus-visible,
+.header-cta:focus-visible {
+  outline-color: var(--navy-dark);
+}
+
+/* Skip-to-content link — hidden until keyboard-focused */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 12px;
+  z-index: 100;
+  padding: 12px 20px;
+  color: var(--white);
+  background: var(--navy);
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 0 0 6px 6px;
+  transition: top 120ms ease;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  top: 0;
+  outline: 3px solid var(--gold);
+  outline-offset: 0;
 }
 
 body {
@@ -528,6 +572,13 @@ h1 {
     justify-content: flex-start;
     overflow-x: auto;
     padding-bottom: 4px;
+  }
+
+  .main-nav a {
+    padding-block: 16px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
   }
 
   .hero-content {
