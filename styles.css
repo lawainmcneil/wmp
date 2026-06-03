@@ -491,8 +491,8 @@ h1 {
   list-style: none;
   margin: 32px 0 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 12px;
 }
 
@@ -911,5 +911,9 @@ h1 {
 
   .contact-form {
     padding: 24px 20px;
+  }
+
+  .contact-phones {
+    grid-template-columns: 1fr;
   }
 }
