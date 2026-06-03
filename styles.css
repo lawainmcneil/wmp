@@ -61,9 +61,16 @@ body {
 .hero :focus-visible,
 .quote-band :focus-visible,
 .service-card-feature :focus-visible,
-.contact-card :focus-visible,
+.contact-band :focus-visible,
 .site-footer :focus-visible {
   outline-color: var(--gold);
+}
+
+/* But form inputs in the contact band get their own focus style */
+.contact-form input:focus-visible,
+.contact-form select:focus-visible,
+.contact-form textarea:focus-visible {
+  outline: none;
 }
 
 a {
@@ -459,93 +466,79 @@ h1 {
 /* ── Contact ───────────────────────────────────────── */
 .contact-band {
   display: grid;
-  grid-template-columns: minmax(280px, 0.72fr) minmax(320px, 1fr);
-  gap: clamp(28px, 5vw, 80px);
+  grid-template-columns: minmax(280px, 0.8fr) minmax(320px, 1.2fr);
+  gap: clamp(40px, 6vw, 96px);
   align-items: start;
-  padding: clamp(66px, 8vw, 110px) clamp(24px, 7vw, 112px);
-  background: var(--white);
+  padding: clamp(72px, 9vw, 120px) clamp(24px, 7vw, 112px);
+  background: var(--navy-dark);
 }
 
-.contact-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
+.contact-band h2 {
+  color: var(--white) !important;
 }
 
-.contact-card {
-  display: grid;
-  gap: 10px;
-  min-height: 235px;
-  padding: 26px;
-  color: var(--white);
-  background: var(--navy);
-  box-shadow: var(--shadow);
+.contact-band .eyebrow {
+  color: var(--gold);
 }
 
-.contact-card h3 {
-  color: var(--white);
-}
-
-.contact-card a,
-.contact-card span {
-  color: rgba(255, 255, 255, 0.86);
-  overflow-wrap: anywhere;
-}
-
-.contact-card a:hover {
-  color: var(--white);
-  text-decoration: underline;
+.contact-band > .contact-intro > p {
+  color: rgba(255, 255, 255, 0.78) !important;
+  font-size: 1.06rem;
 }
 
 /* ── Contact form ──────────────────────────────────── */
-.contact-intro .contact-phones {
+.contact-phones {
   list-style: none;
-  margin: 28px 0 0;
-  padding: 0;
+  margin: 32px 0 0;
+  padding: 24px 0 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  border-top: 1px solid var(--stone);
-  padding-top: 24px;
+  gap: 16px;
 }
 
 .contact-phones li {
-  font-size: 0.97rem;
-  color: var(--muted);
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .contact-phones strong {
   display: block;
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   font-weight: 900;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--navy);
-  margin-bottom: 3px;
+  color: var(--gold);
+  margin-bottom: 4px;
 }
 
 .contact-phones a {
-  color: var(--navy);
-  font-weight: 700;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 600;
 }
 
 .contact-phones a:hover {
+  color: var(--white);
   text-decoration: underline;
 }
 
+/* Form card */
 .contact-form {
-  display: grid;
-  gap: 18px;
   background: var(--white);
-  padding: clamp(24px, 4vw, 40px);
+  border-radius: 6px;
   border-top: 5px solid var(--gold);
-  box-shadow: var(--shadow);
+  padding: clamp(28px, 4vw, 44px);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
+/* Each label+input pair */
 .form-row {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 7px;
 }
 
 .form-row-half {
@@ -554,32 +547,39 @@ h1 {
   gap: 16px;
 }
 
+/* Inner divs in half-row also stack label above input */
+.form-row-half > div {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
 .contact-form label {
-  font-size: 0.8rem;
+  display: block;
+  font-size: 0.78rem;
   font-weight: 900;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--navy);
 }
 
-.req {
-  color: var(--gold-text);
-}
+.req { color: #b45309; }
 
 .form-optional {
   font-weight: 400;
   text-transform: none;
   letter-spacing: 0;
-  font-size: 0.85em;
+  font-size: 0.9em;
   color: var(--muted);
 }
 
 .contact-form input,
 .contact-form select,
 .contact-form textarea {
+  display: block;
   width: 100%;
-  padding: 11px 14px;
-  border: 1.5px solid var(--stone);
+  padding: 12px 14px;
+  border: 1.5px solid #c8c0b2;
   border-radius: 4px;
   background: var(--paper);
   color: var(--ink);
@@ -587,15 +587,15 @@ h1 {
   font-size: 1rem;
   line-height: 1.5;
   transition: border-color 0.15s, box-shadow 0.15s;
-  appearance: none;
   -webkit-appearance: none;
+  appearance: none;
 }
 
 .contact-form select {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23143347' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 14px center;
-  padding-right: 36px;
+  padding-right: 38px;
   cursor: pointer;
 }
 
@@ -604,31 +604,38 @@ h1 {
 .contact-form textarea:focus {
   outline: none;
   border-color: var(--navy);
-  box-shadow: 0 0 0 3px rgba(29, 71, 91, 0.12);
+  box-shadow: 0 0 0 3px rgba(29, 71, 91, 0.15);
+  background: var(--white);
 }
 
 .contact-form textarea {
   resize: vertical;
-  min-height: 108px;
+  min-height: 110px;
 }
 
 .form-actions {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
   align-items: flex-start;
+  padding-top: 4px;
+}
+
+.form-actions .button-gold {
+  min-width: 180px;
 }
 
 .form-status {
-  font-size: 0.95rem;
-  padding: 11px 16px;
-  border-radius: 4px;
+  display: block;
   width: 100%;
+  font-size: 0.95rem;
+  padding: 12px 16px;
+  border-radius: 4px;
 }
 
 .form-success {
   background: #e6f4ea;
-  color: #1e5c2a;
+  color: #1a5c26;
   border: 1px solid #a8d5b0;
 }
 
