@@ -66,11 +66,12 @@ body {
   outline-color: var(--gold);
 }
 
-/* But form inputs in the contact band get their own focus style */
+/* Form inputs use custom border+shadow focus — suppress default outline */
 .contact-form input:focus-visible,
 .contact-form select:focus-visible,
 .contact-form textarea:focus-visible {
-  outline: none;
+  outline: 2px solid var(--navy);
+  outline-offset: 0;
 }
 
 a {
@@ -294,6 +295,20 @@ h1 {
   max-width: 820px;
   margin: 0 auto 46px;
   text-align: center;
+}
+
+.fiduciary-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 14px auto 0;
+  padding: 10px 20px;
+  background: #e8f4e8;
+  border: 1px solid #a8d5a8;
+  border-radius: 100px;
+  color: #1a5c26;
+  font-size: 0.88rem;
+  font-weight: 700;
 }
 
 .story-grid {
