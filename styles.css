@@ -490,34 +490,58 @@ h1 {
 .contact-phones {
   list-style: none;
   margin: 32px 0 0;
-  padding: 24px 0 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
-.contact-phones li {
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.7);
+.contact-phone-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 18px 20px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 3px solid var(--gold);
+  border-radius: 4px;
+  transition: background 0.15s;
 }
 
-.contact-phones strong {
-  display: block;
-  font-size: 0.75rem;
+.contact-phone-card:hover {
+  background: rgba(255, 255, 255, 0.11);
+}
+
+.contact-phone-role {
+  font-size: 0.72rem;
   font-weight: 900;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--gold);
-  margin-bottom: 4px;
 }
 
-.contact-phones a {
-  color: rgba(255, 255, 255, 0.85);
+.contact-phone-name {
+  display: block;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--white);
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.contact-phone-numbers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin-top: 6px;
+}
+
+.contact-phone-numbers a {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.75);
   font-weight: 600;
 }
 
-.contact-phones a:hover {
+.contact-phone-numbers a:hover {
   color: var(--white);
   text-decoration: underline;
 }
