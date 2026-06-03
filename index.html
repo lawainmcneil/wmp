@@ -224,33 +224,84 @@
       </section>
 
       <section class="contact-band" id="contact" aria-labelledby="contact-title">
-        <div>
+        <div class="contact-intro">
           <p class="eyebrow">Start the conversation</p>
           <h2 id="contact-title">We are ready to help bring clarity to your financial future.</h2>
-          <p>
-            Reach out to the WMP team to schedule an initial conversation.
-          </p>
+          <p>Fill out the form and a member of the WMP team will be in touch to schedule an initial conversation.</p>
+
+          <ul class="contact-phones" aria-label="Direct contact numbers">
+            <li>
+              <strong>Dan O'Toole</strong>
+              <a href="tel:15176556200">517-655-6200</a> &middot;
+              <a href="tel:15177196490">Cell 517-719-6490</a>
+            </li>
+            <li>
+              <strong>Victoria H.</strong>
+              <a href="tel:15176556200">517-655-6200</a>
+            </li>
+            <li>
+              <strong>Dan O'Toole, Jr.</strong>
+              <a href="tel:15176556200">517-655-6200</a> &middot;
+              <a href="tel:15176140307">Cell 517-614-0307</a>
+            </li>
+          </ul>
         </div>
-        <div class="contact-grid">
-          <article class="contact-card">
-            <h3>Dan O'Toole</h3>
-            <a href="mailto:dan@wmpfinancialgroup.com">dan@wmpfinancialgroup.com</a>
-            <a href="tel:15176556200">517-655-6200</a>
-            <a href="tel:15177196490">Cell: 517-719-6490</a>
-          </article>
-          <article class="contact-card">
-            <h3>Victoria H.</h3>
-            <a href="mailto:victoria@wmpfinancialgroup.com">victoria@wmpfinancialgroup.com</a>
-            <a href="tel:15176556200">517-655-6200</a>
-            <span>Fax: 866-418-3570</span>
-          </article>
-          <article class="contact-card">
-            <h3>Dan O'Toole, Jr.</h3>
-            <a href="mailto:danieljr@wmpfinancialgroup.com">danieljr@wmpfinancialgroup.com</a>
-            <a href="tel:15176556200">517-655-6200</a>
-            <a href="tel:15176140307">Cell: 517-614-0307</a>
-          </article>
-        </div>
+
+        <form
+          class="contact-form"
+          id="contact-form"
+          action="/contact"
+          method="POST"
+          novalidate
+          aria-label="Contact form"
+        >
+          <!-- Honeypot — hidden from real users -->
+          <input type="text" name="website" aria-hidden="true" tabindex="-1"
+                 style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">
+
+          <div class="form-row">
+            <label for="cf-name">Name <span class="req" aria-hidden="true">*</span></label>
+            <input id="cf-name" name="name" type="text" required
+                   autocomplete="name" placeholder="Your full name">
+          </div>
+
+          <div class="form-row form-row-half">
+            <div>
+              <label for="cf-email">Email <span class="req" aria-hidden="true">*</span></label>
+              <input id="cf-email" name="email" type="email" required
+                     autocomplete="email" placeholder="you@example.com">
+            </div>
+            <div>
+              <label for="cf-phone">Phone</label>
+              <input id="cf-phone" name="phone" type="tel"
+                     autocomplete="tel" placeholder="555-555-5555">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <label for="cf-service">How can we help?</label>
+            <select id="cf-service" name="service">
+              <option value="">Select a topic</option>
+              <option value="Financial Planning">Financial &amp; Investment Planning</option>
+              <option value="Retirement Plan Services">Retirement Plan Services</option>
+              <option value="Insurance Planning">Insurance &amp; Risk Planning</option>
+              <option value="Social Security & Medicare">Social Security &amp; Medicare</option>
+              <option value="Business Planning">Business Planning &amp; Succession</option>
+              <option value="Other">Other / General Question</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label for="cf-message">Message <span class="form-optional">(optional)</span></label>
+            <textarea id="cf-message" name="message" rows="4"
+                      placeholder="Tell us a bit about your situation…"></textarea>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="button button-gold">Send Message</button>
+            <p class="form-status" id="form-status" aria-live="polite" hidden></p>
+          </div>
+        </form>
       </section>
     </main>
 
@@ -269,6 +320,45 @@
       </nav>
     </footer>
     <script>
+      /* ── Contact form ── */
+      (function () {
+        var form   = document.getElementById('contact-form');
+        var status = document.getElementById('form-status');
+        if (!form || !status) return;
+
+        form.addEventListener('submit', async function (e) {
+          e.preventDefault();
+          var btn = form.querySelector('button[type="submit"]');
+          btn.disabled = true;
+          btn.textContent = 'Sending…';
+          status.hidden = true;
+          status.className = 'form-status';
+
+          try {
+            var res  = await fetch('/contact', { method: 'POST', body: new FormData(form) });
+            var data = await res.json();
+            if (data.success) {
+              status.textContent = '✓ Message sent — we\'ll be in touch soon.';
+              status.className = 'form-status form-success';
+              form.reset();
+            } else {
+              status.textContent = data.error || 'Something went wrong. Please try again.';
+              status.className = 'form-status form-error';
+            }
+          } catch (_) {
+            status.textContent = 'Network error. Please call us directly at 517-655-6200.';
+            status.className = 'form-status form-error';
+          }
+
+          status.hidden = false;
+          btn.disabled = false;
+          btn.textContent = 'Send Message';
+        });
+      })();
+    </script>
+
+    <script>
+      /* ── Hamburger nav ── */
       (function () {
         var toggle = document.querySelector('.nav-toggle');
         var nav = document.getElementById('main-nav');
