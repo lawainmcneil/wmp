@@ -36,6 +36,7 @@
     <!-- Performance hints -->
     <link rel="preconnect" href="https://images.unsplash.com" />
     <link rel="dns-prefetch" href="https://images.unsplash.com" />
+    <link rel="dns-prefetch" href="https://challenges.cloudflare.com" />
     <link rel="preload" as="image" href="Images/hero image_files/unsplash-image-WgGJjGN4_ck.jpg" fetchpriority="high" />
 
     <!-- JSON-LD Structured Data -->
@@ -128,6 +129,7 @@
     </script>
 
     <link rel="stylesheet" href="styles.css" />
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to main content</a>
@@ -440,6 +442,9 @@
             <textarea id="cf-message" name="message" rows="4"
                       placeholder="Tell us a bit about your situation…"></textarea>
           </div>
+
+          <!-- Cloudflare Turnstile bot protection -->
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAADf_Uuer-iK0ySNl" data-theme="light"></div>
 
           <div class="form-actions">
             <button type="submit" class="button button-gold">Send Message</button>

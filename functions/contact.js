@@ -9,16 +9,41 @@ export async function onRequestPost(context) {
   try {
     const fd = await request.formData();
 
-    const name    = (fd.get('name')    || '').trim();
-    const email   = (fd.get('email')   || '').trim();
-    const phone   = (fd.get('phone')   || '').trim() || 'Not provided';
-    const service = (fd.get('service') || '').trim() || 'Not specified';
-    const message = (fd.get('message') || '').trim();
-    const honey   = (fd.get('website') || '').trim(); // honeypot
+    const name      = (fd.get('name')    || '').trim();
+    const email     = (fd.get('email')   || '').trim();
+    const phone     = (fd.get('phone')   || '').trim() || 'Not provided';
+    const service   = (fd.get('service') || '').trim() || 'Not specified';
+    const message   = (fd.get('message') || '').trim();
+    const honey     = (fd.get('website') || '').trim(); // honeypot
+    const tsToken   = (fd.get('cf-turnstile-response') || '').trim();
 
-    // Reject bots
+    // Reject bots (honeypot)
     if (honey) {
       return new Response(JSON.stringify({ success: true }), { status: 200, headers });
+    }
+
+    // Verify Cloudflare Turnstile token
+    if (!tsToken) {
+      return new Response(
+        JSON.stringify({ error: 'Bot check failed. Please refresh and try again.' }),
+        { status: 400, headers }
+      );
+    }
+    const tsVerify = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        secret: env.TURNSTILE_SECRET_KEY,
+        response: tsToken,
+        remoteip: request.headers.get('CF-Connecting-IP') || undefined,
+      }),
+    });
+    const tsResult = await tsVerify.json();
+    if (!tsResult.success) {
+      return new Response(
+        JSON.stringify({ error: 'Bot verification failed. Please try again.' }),
+        { status: 400, headers }
+      );
     }
 
     // Basic validation
